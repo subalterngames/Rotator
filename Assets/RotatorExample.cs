@@ -1,47 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SubalternGames;
 
 
-namespace SubalternGames
+/// <summary>
+/// Example code for how to use the Rotator class.
+/// Apply a rotation first to an object using discrete angles,
+/// then to a quaternion using a lerp,
+/// and finally to a rigidbody.
+/// </summary>
+public class RotatorExample : MonoBehaviour
 {
-    /// <summary>
-    /// Example code for how to use Rotator.cs
-    /// </summary>
-    public class RotatorExample : MonoBehaviour
+    private void Start()
     {
-        /// <summary>
-        /// Rotate by this angle per frame.
-        /// </summary>
-        public float pitch = 0.5f;
-        /// <summary>
-        /// Roll by this angle per frame.
-        /// </summary>
-        public float roll = 1f;
+        // Start the rotation example.
+        StartCoroutine(Rotate());
+    }
 
 
-        private void Start()
+    /// <summary>
+    /// Rotate the object.
+    /// </summary>
+    private IEnumerator Rotate()
+    {
+        // Rotate the transform by a little bit per frame.
+        for (int i = 0; i < 200; i++)
         {
-            // Start the rotation example.
-            StartCoroutine(Rotate());
+            // Apply the pitch angle.
+            transform.Pitch(0.5f);
+
+            // Apply the roll angle.
+            transform.Roll(1f);
+
+            yield return new WaitForEndOfFrame();
         }
 
+        yield return new WaitForSeconds(1);
 
-        /// <summary>
-        /// Rotate the object.
-        /// </summary>
-        private IEnumerator Rotate()
+        // Reset the rotation.
+        transform.rotation = Quaternion.identity;
+
+        // Apply a lerp.
+        Quaternion rotated = transform.rotation;
+        rotated = rotated.Pitch(90).Yaw(45);
+        
+        while (Quaternion.Angle(transform.rotation, rotated) > 0.1f)
         {
-            // Rotate the transform by a little bit per frame.
-            for (int i = 0; i < 200; i++)
-            {
-                // Apply the pitch angle.
-                transform.PitchBy(pitch);
+            // Apply the lerp.
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation, rotated, Time.deltaTime);
 
-                // Apply the roll angle.
-                transform.RollBy(roll);
+            yield return new WaitForEndOfFrame();
+        }
 
-                yield return new WaitForEndOfFrame();
-            }
+        yield return new WaitForSeconds(1);
+
+        // Reset the rotation.
+        transform.rotation = Quaternion.identity;
+
+        // Add the rigidbody.
+        Rigidbody r = gameObject.AddComponent<Rigidbody>();
+        r.isKinematic = true;
+
+        rotated = transform.rotation;
+        rotated = rotated.Pitch(90).Yaw(45);
+
+        // Apply a lerp on the rigidbody using the physics-safed MoveRotation method.
+        while (Quaternion.Angle(transform.rotation, rotated) > 0.1f)
+        {
+            r.MoveRotation(Quaternion.Lerp(
+                transform.rotation, rotated, Time.deltaTime));
+
+            yield return new WaitForEndOfFrame();
         }
     }
 }

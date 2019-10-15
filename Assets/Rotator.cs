@@ -9,6 +9,9 @@ namespace SubalternGames
     /// </summary>
     public static class Rotator
     {
+
+        #region ENUMS
+
         /// <summary>
         /// An axis of rotation.
         /// </summary>
@@ -28,6 +31,9 @@ namespace SubalternGames
             roll
         }
 
+        #endregion
+
+        #region FIELDS
 
         /// <summary>
         /// Each axis of rotation as a direction in Unity worldspace.
@@ -39,37 +45,42 @@ namespace SubalternGames
             { Axis.pitch, Vector3.right }
         };
 
+        #endregion
+
+        #region METHODS
+
+        #region QUATERNION
 
         /// <summary>
         /// Pitch (nod your head "yes") by an angle.
         /// </summary>
-        /// <param name="transform">The transform.</param>
+        /// <param name="quaternion">The quaternion.</param>
         /// <param name="angle">The angle of rotation in degrees.</param>
-        public static void PitchBy(this Transform transform, float angle)
+        public static Quaternion Pitch(this Quaternion quaternion, float angle)
         {
-            transform.RotateBy(angle, Axis.pitch);
+            return quaternion.RotateBy(angle, Axis.pitch);
         }
 
 
         /// <summary>
         /// Roll (put your ear to your shoulder) by an angle.
         /// </summary>
-        /// <param name="transform">The transform.</param>
+        /// <param name="quaternion">The quaternion.</param>
         /// <param name="angle">The angle of rotation in degrees.</param>
-        public static void RollBy(this Transform transform, float angle)
+        public static Quaternion Roll(this Quaternion quaternion, float angle)
         {
-            transform.RotateBy(angle, Axis.roll);
+            return quaternion.RotateBy(angle, Axis.roll);
         }
 
 
         /// <summary>
         /// Yaw (shake your head "no") by an angle.
         /// </summary>
-        /// <param name="transform">The transform.</param>
+        /// <param name="quaternion">The quaternion.</param>
         /// <param name="angle">The angle of rotation in degrees.</param>
-        public static void YawBy(this Transform transform, float angle)
+        public static Quaternion Yaw(this Quaternion quaternion, float angle)
         {
-            transform.RotateBy(angle, Axis.yaw);
+            return quaternion.RotateBy(angle, Axis.yaw);
         }
 
 
@@ -85,9 +96,47 @@ namespace SubalternGames
         }
 
 
+        #endregion
+
+        #region TRANSFORM
+
+        /// <summary>
+        /// Pitch (nod your head "yes") by an angle.
+        /// </summary>
+        /// <param name="transform">The transform.</param>
+        /// <param name="angle">The angle of rotation in degrees.</param>
+        public static void Pitch(this Transform transform, float angle)
+        {
+            transform.RotateBy(angle, Axis.pitch);
+        }
+
+
+        /// <summary>
+        /// Roll (put your ear to your shoulder) by an angle.
+        /// </summary>
+        /// <param name="transform">The transform.</param>
+        /// <param name="angle">The angle of rotation in degrees.</param>
+        public static void Roll(this Transform transform, float angle)
+        {
+            transform.RotateBy(angle, Axis.roll);
+        }
+
+
+        /// <summary>
+        /// Yaw (shake your head "no") by an angle.
+        /// </summary>
+        /// <param name="transform">The transform.</param>
+        /// <param name="angle">The angle of rotation in degrees.</param>
+        public static void Yaw(this Transform transform, float angle)
+        {
+            transform.RotateBy(angle, Axis.yaw);
+        }
+
+
         /// <summary>
         /// Rotate an object by a given angle around a given axis.
         /// </summary>
+        /// <param name="transform">The transform.</param>
         /// <param name="angle">The angle of rotation.</param>
         /// <param name="axis">The axis around which the object is rotated.</param>
         /// <param name="isWorld">If true, the object will rotate via "global" directions and angles. If false, the object will rotate with respect to its current rotation.</param>
@@ -104,5 +153,9 @@ namespace SubalternGames
                 transform.localRotation = transform.localRotation.RotateBy(angle, axis);
             }
         }
+        #endregion
+
+        #endregion
+
     }
 }
