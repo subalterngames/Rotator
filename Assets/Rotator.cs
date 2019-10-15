@@ -95,7 +95,6 @@ namespace SubalternGames
             return quaternion * Quaternion.AngleAxis(angle, Axes[axis]);
         }
 
-
         #endregion
 
         #region TRANSFORM
