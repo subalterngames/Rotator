@@ -152,6 +152,7 @@ namespace SubalternGames
                 transform.localRotation = transform.localRotation.RotateBy(angle, axis);
             }
         }
+        
         #endregion
 
         #endregion
