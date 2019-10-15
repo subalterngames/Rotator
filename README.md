@@ -1,4 +1,4 @@
-# README
+# Rotator
 
 `Rotator` adds "extension" methods to `Transform` and `Quaternion` to make quaternion rotation both accurate and intuitive.
 
