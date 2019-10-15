@@ -138,19 +138,11 @@ namespace SubalternGames
         /// <param name="transform">The transform.</param>
         /// <param name="angle">The angle of rotation.</param>
         /// <param name="axis">The axis around which the object is rotated.</param>
-        /// <param name="isWorld">If true, the object will rotate via "global" directions and angles. If false, the object will rotate with respect to its current rotation.</param>
-        private static void RotateBy(this Transform transform, float angle, Axis axis, bool isWorld = true)
+        private static void RotateBy(this Transform transform, float angle, Axis axis)
         {
-            if (isWorld)
-            {
-                transform.localRotation =
-                    Quaternion.identity.RotateBy(angle, axis) *
-                    transform.localRotation;
-            }
-            else
-            {
-                transform.localRotation = transform.localRotation.RotateBy(angle, axis);
-            }
+            transform.localRotation =
+                Quaternion.identity.RotateBy(angle, axis) *
+                transform.localRotation;
         }
         
         #endregion
