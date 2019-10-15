@@ -1,6 +1,6 @@
 # Rotator
 
-`Rotator` adds "extension" methods to `Transform` and `Quaternion` to make quaternion rotation both accurate and intuitive.
+`Rotator` is a Unity3D C# script that allows you to rotate objects both accurately and intuitively.
 
 ### Setup
 
